@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Domain\Api\Musicians;
+use App\Http\Controllers\MusicianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/musicians', function() {
-    $musicians = Musicians::fetch();
-    return view('musicians/index', ['musicians' => $musicians]);
-});
+// Route::get('/musicians', function() {
+//     $musicians = Musicians::fetch();
+//     return view('musicians/index', ['musicians' => $musicians]);
+// });
+
+Route::resource('musicians', MusicianController::class);
