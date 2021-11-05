@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('dashboard')
 
 @section('content')
 
@@ -12,7 +12,9 @@
 
     <thead>
         <tr>
-          <th>First Name</th>
+          <th>
+            <a href="{{ route('friends.index', ['sortBy' => 'first_name', 'direction' => 'asc'] ) }}">First Name</a>
+          </th>
           <th>Last Name</th>
           <th>Age</th>
           <th></th>

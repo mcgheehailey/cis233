@@ -1,9 +1,7 @@
 <?php
 
-
-
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FriendController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Laravel to create resourcesful routes for us
 
-Route::resource('friends', FriendController::class);
+// Laravel-specific authentication
+// ->middleware('auth')
+Route::resource('friends', FriendController::class)->middleware('auth');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

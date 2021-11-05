@@ -11,10 +11,13 @@ class MusicianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $musicians = \App\Models\Musician::simplePaginate(10);
-        return view('musicians.index', ['musicians' => $musicians]);
+        $sortBy = $request->query('sortBy') ?? 'first_name';
+        $direction = $request->query('direction') ?? 'asc';
+        $musicians = \App\Models\Musician::query()->orderBy($sortBy, $direction);
+
+        return view('musicians.index', ['musicians' => $musicians->paginate(25)]);
     }
 
     /**

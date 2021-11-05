@@ -19,9 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/musicians', function() {
-//     $musicians = Musicians::fetch();
-//     return view('musicians/index', ['musicians' => $musicians]);
-// });
+Route::resource('musicians', MusicianController::class)->middleware('auth');
 
-Route::resource('musicians', MusicianController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

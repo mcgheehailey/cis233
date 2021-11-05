@@ -11,10 +11,12 @@ class FriendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $friends = \App\Models\Friend::paginate(25);
-        return view('friends.index', ['friends' => $friends]);
+        $sortBy = $request->query('sortBy') ?? 'last_name';
+        $direction = $request->query('direction') ?? 'asc';
+        $friends = \App\Models\Friend::query()->orderBy($sortBy, $direction);
+        return view('friends.index', ['friends' => $friends->paginate(25)]);
     }
 
     /**

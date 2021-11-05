@@ -21,9 +21,16 @@ class FriendSeeder extends Seeder
 
         \App\Models\Friend::query()->delete();
 
-        foreach(range(1,200) as $number) {
+        foreach(range(1,100) as $number) {
             \App\Models\Friend::create([
                 'first_name' => 'John',
+                'last_name' => 'Doe',
+                'age' => 99
+            ]);
+        }
+        foreach(range(1,100) as $number) {
+            \App\Models\Friend::create([
+                'first_name' => 'Alex',
                 'last_name' => 'Doe',
                 'age' => 99
             ]);

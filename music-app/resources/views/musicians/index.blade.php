@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('dashboard')
 
 @section('content')
 
@@ -10,9 +10,9 @@
 <table class=" table table-striped table-hover">
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Instrument</th>
+      <th><a href="{{ route('musicians.index', ['sortBy' => 'first_name', 'direction' => 'asc'] ) }}">First Name</a></th>
+      <th><a href="{{ route('musicians.index', ['sortBy' => 'last_name', 'direction' => 'asc'] ) }}">Last Name</a></th>
+      <th><a href="{{ route('musicians.index', ['sortBy' => 'instrument', 'direction' => 'asc'] ) }}">Instrument</a></th>
       <th>Website</th>
       <th></th>
       <th></th>
