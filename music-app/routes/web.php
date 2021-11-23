@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Domain\Api\Musicians;
 use App\Http\Controllers\MusicianController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::resource('musicians', MusicianController::class)->middleware('auth');
+
+Route::resource('users', UserController::class)->middleware('auth')->middleware('admin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

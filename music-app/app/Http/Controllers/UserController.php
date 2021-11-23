@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class MusicianController extends Controller
+class UserController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('admin')->only('create', 'edit', 'destroy');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,11 +14,11 @@ class MusicianController extends Controller
      */
     public function index(Request $request)
     {
-        $sortBy = $request->query('sortBy') ?? 'first_name';
+        $sortBy = $request->query('sortBy') ?? 'name';
         $direction = $request->query('direction') ?? 'asc';
-        $musicians = \App\Models\Musician::query()->orderBy($sortBy, $direction);
+        $users = \App\Models\User::query()->orderBy($sortBy, $direction);
 
-        return view('musicians.index', ['musicians' => $musicians->paginate(25)]);
+        return view('users.index', ['users' => $users->paginate(25)]);
     }
 
     /**
@@ -32,9 +28,11 @@ class MusicianController extends Controller
      */
     public function create()
     {
-        $musician = new \App\Models\Musician;
-        return view('musicians.create', ['musician' => $musician]);
+        $user = new \App\Models\User;
+        
+        return view('users.create', ['user' => $user]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -44,10 +42,9 @@ class MusicianController extends Controller
      */
     public function store(Request $request)
     {
-        \App\Models\Musician::create($this->validatedData($request));
+        \App\Models\User::create($this->validatedData($request));
 
-        // Valid and Created
-        return redirect()->route('musicians.index')->with('success', 'Musician was created successfully');
+        return redirect()->route('users.index')->with('success', 'User was created successfully');
     }
 
     /**
@@ -58,8 +55,8 @@ class MusicianController extends Controller
      */
     public function show($id)
     {
-        $musician = \App\Models\Musician::find($id);
-        return view('musicians.show', ['musician' => $musician]);
+        $user = \App\Models\User::find($id);
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -70,8 +67,8 @@ class MusicianController extends Controller
      */
     public function edit($id)
     {
-        $musician = \App\Models\Musician::findOrFail($id);
-        return view('musicians.edit', ['musician' => $musician]);
+        $user = \App\Models\User::findOrFail($id);
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -83,10 +80,10 @@ class MusicianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \App\Models\Musician::findOrFail($id)->update($this->validatedData($request));
+        \App\Models\User::findOrFail($id)->update($this->validatedData($request));
 
         // Valid and Created
-        return redirect()->route('musicians.index')->with('success', 'Musician was updated successfully');
+        return redirect()->route('users.index')->with('success', 'User was updated successfully');
     }
 
     /**
@@ -97,18 +94,17 @@ class MusicianController extends Controller
      */
     public function destroy($id)
     {
-        $musician = \App\Models\Musician::find($id);
-        $musician->delete();
+        $user = \App\Models\User::find($id);
+        $user->delete();
 
-        return redirect()->route('musicians.index')->with('success', 'Musician was deleted');
+        return redirect()->route('users.index')->with('success', 'User was deleted');
     }
 
     private function validatedData($request){
         return $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'instrument' => 'required',
-            'website' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
         ]);
     }
 }

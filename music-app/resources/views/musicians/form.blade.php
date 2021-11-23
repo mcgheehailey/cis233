@@ -1,4 +1,4 @@
-<label class="form-lable" for="first_name">Fist Name</label>
+<label class="form-lable" for="first_name">First Name</label>
         <input class="form-input" type="text" name="first_name" id="first_name" value="{{old('first_name', $musician->first_name)}}">
         <label class="form-lable" for="last_name">Last Name</label>
         <input class="form-input" type="text" name="last_name" id="last_name" value="{{old('last_name', $musician->last_name)}}">

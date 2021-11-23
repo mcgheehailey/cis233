@@ -17,17 +17,27 @@
             @else
                 <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
-                @if (Route::has('register'))
+                {{-- @if (Route::has('register'))
                     <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                @endif
+                @endif --}}
              @endauth
         </div>
     @endif
     <div class="container">
         <h1>Musicians App</h1>
-        @if (session()->get('success'))
+        @if(Session::has('success'))
             <div class="toast toast-success">
                 {{session()->get('success')}}
+            </div> 
+        @endif
+        @yield('content')
+    </div>
+
+    <div class="container">
+        <h1>Musicians App</h1>
+        @if(Session::has('error'))
+            <div class="toast toast-error">
+                {{session()->get('error')}}
             </div> 
         @endif
         @yield('content')
