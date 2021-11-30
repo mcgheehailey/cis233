@@ -9,7 +9,7 @@ class MusicianController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin')->only('create', 'edit', 'destroy');
+        $this->middleware('coordinator')->only('create', 'edit', 'destroy');
     }
     /**
      * Display a listing of the resource.

@@ -19,7 +19,7 @@ class CheckCoordinator
     {
         $userRoles = Auth::user()->roles->pluck('name');
 
-        if(!$userRoles->contains('coordinator' || 'administrator')){
+        if($userRoles->contains('viewer')){
             return redirect()->route('musicians.index')->with('error', 'Access Denied');
         }
         

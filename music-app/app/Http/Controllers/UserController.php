@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -80,7 +81,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \App\Models\User::findOrFail($id)->update($this->validatedData($request));
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required'],
+        ]);
+
+        \App\Models\User::findOrFail($id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
         // Valid and Created
         return redirect()->route('users.index')->with('success', 'User was updated successfully');
