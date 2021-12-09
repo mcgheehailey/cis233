@@ -22,10 +22,12 @@ Route::get('/', function () {
 
 Route::resource('musicians', MusicianController::class)->middleware('auth');
 
-Route::resource('users', UserController::class)->middleware('auth')->middleware('admin');
+Route::resource('users', UserController::class)->middleware('auth', 'admin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/livemusicians', \App\Http\Livewire\Musicians::class);
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@
 
 <h3>users: </h3>
 
-<a class="btn btn-primary" href="{{ route('register') }}">Create</a>
+<a class="btn btn-primary" href="{{ route('users.create') }}">Create</a>
    
 {{ $users->links() }}
 <table class=" table table-striped table-hover">
